@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('livetribe-jsr223-2.0.7.jar'))

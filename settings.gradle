@@ -1,0 +1,4 @@
+include ':exp4j-0.4.8'
+include ':livetribe-jsr223-2.0.7'
+include ':app'
+rootProject.name = "Calculator"
