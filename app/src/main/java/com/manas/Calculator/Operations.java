@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Operations {
 
-    // joins list
+    // returns a string by join all elements of given ArrayList<>
     public static String createString(ArrayList<String> expression) {
         int i;
         String answer = "";
@@ -19,11 +19,7 @@ public class Operations {
         return answer;
     }
 
-    public static String eval(String expression) {
-
-        return "0";
-    }
-
+    // decides the operator to be added in Arraylist<> when an operator button is clicked
     public static String decideButton(String tag) {
         String button = "";
 

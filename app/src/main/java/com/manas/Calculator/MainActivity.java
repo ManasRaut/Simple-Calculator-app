@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText expDisplay;
     private EditText resultDisplay;
 
-    // variables to store main info like expression and result
     private ArrayList<String> expArray = new ArrayList<>();
     private String result = "0";
     private String tag = "";
@@ -53,14 +52,16 @@ public class MainActivity extends AppCompatActivity {
         updateDisplay();
     }
 
+    // adds operator in expArray[] by performing neccessary checks
     public void operatorClick(View v) {
         String element;
         String previous = "";
         int prevIndex = -1;
 
+        // checks is result is calculated
         if (gotResult) {
             gotResult = false;
-            expArray.clear();
+            expArray.clear(); // clears Arraylist
             if ((int) resultOncalc % resultOncalc == 0) {
                 expArray.add(Integer.toString((int) resultOncalc));
             }
@@ -69,16 +70,17 @@ public class MainActivity extends AppCompatActivity {
             }
             updateDisplay();
         }
-        resultDisplay.setText("=0");
+        resultDisplay.setText("=0"); // resets resultDisplay
 
         Button b = (Button) v;
         tag = b.getText().toString();
-        element = Operations.decideButton(tag);
+        element = Operations.decideButton(tag); // gets the operator for corresponding clicked button
 
         if (expArray.size() > 0) {
             prevIndex = expArray.size() - 1;
-            previous = expArray.get(prevIndex);
+            previous = expArray.get(prevIndex); // gets previous element
 
+            // performs neccessary checks and modefies the expArray[]
             if (previous == "+" || previous == "-" || previous == "*" || previous == "/") {
                 if (element == "(" || element == ")") {
                     expArray.add(element);
@@ -98,32 +100,38 @@ public class MainActivity extends AppCompatActivity {
          updateDisplay();
     }
 
+    // calculates the result
     public void equalClick(View v) throws Exception {
 
-        String input = Operations.createString(expArray);
+        String input = Operations.createString(expArray); // gets String expression of the expArray[]
         String output = "";
         int test = 0;
 
         if (input != "") {
+
+            // try catch block to avoid any exceptions
             try {
                 Expression expression = new ExpressionBuilder(input).build();
                 resultOncalc = expression.evaluate();
                 output ="=" + Double.toString(resultOncalc);
                 test = (int) resultOncalc;
+
+                // if result is an integer then dislays integer else displays double
                 if (resultOncalc % test == 0 || resultOncalc  % test == 0.0 ) {
                     output ="=" + Integer.toString(test);
                 }
                 gotResult = true;
             } catch (Exception e) {
                 gotResult = false;
-                output = "Error";
+                output = "Error"; // catches exceptions and displays Error in resultDisplay
             }
         }
         else { gotResult = false;}
 
-        resultDisplay.setText(output);
+        resultDisplay.setText(output); // sets text of resultDisplay
     }
 
+    // clears expArray[] and also clears display
     public void clearClick(View v) {
         expArray.clear();
         resultDisplay.setText("=0");
@@ -131,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         gotResult = false;
     }
 
+    // removes last element of the Array[]
     public void deleteClick(View v) {
         if (expArray.size() > 0) {
             expArray.remove(expArray.size()-1);
@@ -138,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // method used by other methods to display passed parameter as test in display
     public void updateDisplay() {
         String exp;
         exp = Operations.createString(expArray);
