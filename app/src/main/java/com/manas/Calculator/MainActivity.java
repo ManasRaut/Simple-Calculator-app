@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 resultOncalc = expression.evaluate();
                 output ="=" + Double.toString(resultOncalc);
                 test = (int) resultOncalc;
-                if (test % resultOncalc == 0 || test % resultOncalc == 0.0 ) {
+                if (resultOncalc % test == 0 || resultOncalc  % test == 0.0 ) {
                     output ="=" + Integer.toString(test);
                 }
                 gotResult = true;
@@ -119,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                 output = "Error";
             }
         }
-        else {gotResult = false;}
+        else { gotResult = false;}
+
         resultDisplay.setText(output);
     }
 
